@@ -1948,104 +1948,56 @@ function ScreenLayer3({ form, setForm, result, setResult, loading, setLoading, e
     },
   ];
  const handleScore = async () => {
-
     setLoading(true); setError(null);
-
     try {
-
       const payload = {
-
         transaksi: form.transaksi, pendapatan: form.pendapatan, growth: form.growth,
-
         volatilitas: form.volatilitas, pinjaman: form.jumlah_pinjaman_aktif, nib: form.nib,
-
         ojol_bulan_aktif: form.ojol_bulan_aktif, memiliki_npwp: form.memiliki_npwp,
-
         aktif_marketplace: form.aktif_marketplace, slik_kolektibilitas: form.slik_kolektibilitas,
-
         memiliki_kendaraan_roda4: form.memiliki_kendaraan_roda4,
-
         marketplace_order_per_bulan: form.marketplace_order_per_bulan,
-
         avg_tagihan_listrik_bulan: form.avg_tagihan_listrik_bulan,
-
         memiliki_kendaraan_roda2: form.memiliki_kendaraan_roda2,
-
         saldo_rata_rata_bulan: form.saldo_rata_rata_bulan, memiliki_pirt: form.memiliki_pirt,
-
         pernah_kredit_macet: form.pernah_kredit_macet, aktif_ojol: form.aktif_ojol,
-
         ojol_avg_order_per_hari: form.ojol_avg_order_per_hari,
-
         marketplace_lama_bergabung_bulan: form.marketplace_lama_bergabung_bulan,
-
         marketplace_rating: form.marketplace_rating,
-
         konsistensi_bayar_listrik: form.konsistensi_bayar_listrik,
-
         lama_usaha_tahun: form.lama_usaha_tahun, jumlah_rekening_bank: form.jumlah_rekening_bank,
-
         sertifikasi_halal: form.sertifikasi_halal, ojol_rating: form.ojol_rating,
-
         konsistensi_bayar_air: form.konsistensi_bayar_air, kota: form.kota,
-
         kategori_usaha: form.kategori_usaha, status_kepemilikan_rumah: form.status_kepemilikan_rumah,
-
         // Layer 2C data — receipt OCR proxy (masuk sebagai fitur tambahan)
-
         receipt_avg_opex: form.receipt_avg_opex || 0,
-
         receipt_count: form.receipt_count || 0,
-
         receipt_anchor_status: form.receipt_anchor_status || "not_checked",
-
         // Observasi officer — fitur kualitatif
-
         obs_jenis_tempat_usaha: form.obs_jenis_tempat_usaha || "",
-
         obs_sumber_bahan_baku: form.obs_sumber_bahan_baku || "",
-
         obs_estimasi_pelanggan_per_hari: form.obs_estimasi_pelanggan_per_hari || 0,
-
         obs_jumlah_sku: form.obs_jumlah_sku || 0,
-
       };
-
       const res = await fetch(`${API_URL}/predict`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-
       if (!res.ok) throw new Error(`Backend error ${res.status}`);
-
       const data = await res.json();
-
       // Guard: cek error field dari backend
-
       if (data.error) {
-
         throw new Error(data.error);
-
       }
-
       // Guard: cek NaN / Inf pada probability
-
       if (data.probability === undefined || isNaN(data.probability) || !isFinite(data.probability)) {
-
         throw new Error(`Model mengembalikan probabilitas tidak valid (NaN/Inf). Kemungkinan nilai kota atau kategori_usaha tidak dikenal model. Cek log backend.`);
-
       }
-
       setResult(data);
-
     } catch (e) {
-
       setError(`Gagal terhubung ke backend: ${e.message}`);
-
     } finally {
-
       setLoading(false);
-
     }
+  };
 
-  }; 
 
 
   const handleNext = async () => {
