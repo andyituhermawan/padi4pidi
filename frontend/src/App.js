@@ -5,9 +5,9 @@ import {
 } from "recharts";
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const API_URL = "http://127.0.0.1:8000";
-const OCR_URL  = "http://127.0.0.1:8001"; // OCR backend (main.py) — KTP, NIB, NPWP
-const RCPT_URL = "http://127.0.0.1:8003"; // Receipt OCR backend (receipt_ocr.py)
+const API_URL = "https://andyituhermawan-padi4pidi.hf.space";
+const OCR_URL  = "https://andyituhermawan-padi4pidi.hf.space"; // OCR backend (main.py) — KTP, NIB, NPWP
+const RCPT_URL = "https://andyituhermawan-padi4pidi.hf.space"; // Receipt OCR backend (receipt_ocr.py)
 
 const C = {
   navy:    "#0B1F3A",
